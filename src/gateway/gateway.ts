@@ -19,15 +19,10 @@ export class MessageGateway implements OnModuleInit {
       console.log('Connected');
     });
   }
+
+  @SubscribeMessage('MY_CURRENT_LOCATION')
+  handleNewLocation(@MessageBody() body: any) {
+    this.server.emit('UPDATE_CURRENT_LOCATION', body);
+  }
   
-  @SubscribeMessage('SEND_LOCATION')
-  send(@MessageBody() body: any) {
-    this.server.emit('RETURN_LOCATION', body);
-  }
-
-  @SubscribeMessage('UPDATE_REQUEST_LOCATION')
-  updateLocation(@MessageBody() sender: any) {
-    this.server.emit('GET_LOCATION', sender);
-  }
-
 }
